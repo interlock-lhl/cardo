@@ -1,0 +1,25 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.column-wrap {
+  margin: 0;
+  float: left;
+  margin-right: 10px;
+  background: #eee;
+  padding: 5px;
+  width: 183px;
+  border: 1px solid red;
+}
+
+ul.column {
+  list-style-type: none;
+  padding: 0px;
+}
+
+ul.column li {
+  // margin: 5px;
+  // padding: 5px;
+  font-size: 1.2em;
+  width: 160px;
+}

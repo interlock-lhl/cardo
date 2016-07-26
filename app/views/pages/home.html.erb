@@ -1,0 +1,23 @@
+<h2>SPA Trello Clone</h2>
+
+<div class="board">
+  <div class="column-wrap add-column">
+    <button>Add Column</button>
+  </div>
+</div>
+
+<script id="hb-column" type="handlebars/text">
+<div class="column-wrap" data-column-id="{{id}}">
+  <h3>{{name}}</h3>
+  <ul class="column">
+  </ul>
+  <button class="add">Add Card</button>
+</div>
+</script>
+
+<script id="hb-card" type="handlebars/text">
+<li class="ui-state-default card" data-card-id="{{id}}">
+  {{title}}
+  <button class="edit">Edit</button><button class="delete">Delete</button>
+</li>
+</script>

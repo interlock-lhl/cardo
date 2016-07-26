@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cardo</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v4.0.5.js"></script>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
