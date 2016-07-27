@@ -53,13 +53,25 @@ $(function() {
     // Edit a Card
     elm.on('click', 'button.edit', function(event) {
       var cardElm = $(this).parent();
-      // var card = findCard(cardElm.attr('data-card-id'));
-      // var new_title = prompt("New Title?", card.title);
-      // card.title = new_title;
-      // var new_elm = $(cardTemplate(card));
-      // elm.replaceWith(new_elm);
-      // elm = new_elm;
-      // console.log('edit');
+      console.log(column);
+      console.log(parseInt(cardElm.attr('data-card-id')));
+      var card = findCardById(column, parseInt(cardElm.attr('data-card-id')));
+      var new_title = prompt("New Title?", card.title);
+      card.title = new_title;
+      $.ajax({
+        method: 'PUT',
+        url: '/api/boards/' + column.board_id + '/columns/' + column.id + '/cards/' + card.id,
+        data: JSON.stringify(card),
+        contentType: 'application/json',
+        success: function(data, success) {
+          if (success == 'success') {
+            column.cards.splice(column.cards.indexOf(card),1); // remove the old card
+            column.cards.push(data);
+            var new_elm = $(cardTemplate(data));
+            cardElm.replaceWith(new_elm);            
+          }
+        }
+      });
     });
 
     // When deleting a card
@@ -68,6 +80,11 @@ $(function() {
     });
 
     elm.insertBefore('.board div.add-column');
+
+    // TODO refactor
+    column.cards.forEach(function(item) {
+      renderCard(item);
+    });
   }
 
   // Add a card to the column of a board
@@ -80,7 +97,6 @@ $(function() {
       data: JSON.stringify(card),
       contentType: 'application/json',
       success: function(data, success) {
-        debugger;
         column.cards = column.cards || [];
         column.cards.push(data);
         renderCard(data);
@@ -96,6 +112,16 @@ $(function() {
     var elm = $(cardTemplate(card));
 
     $("[data-column-id=" + card.column_id + "]").find('ul').append(elm);
+  }
+
+  // given a column, find a column by it's id
+  function findCardById(column, id) {
+    var c = null
+    column.cards.forEach(function(card) {
+      if (card.id == id) c = card;
+    });
+
+    return c;
   }
 
   // Setup add column
